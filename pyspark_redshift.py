@@ -22,7 +22,7 @@ spark._jsc.hadoopConfiguration().set("fs.s3.awsSecretAccessKey", "")
 
 # create spark datafrme from csv file
 AirlineDF = spark.read.option("header", "true").csv(
-    "/Users/ghost/Documents/Dependencies/airlines1.csv")
+    "/Users/ghost/Documents/airline/airlines1.csv")
 
 AirlineDF.show()
 
@@ -34,16 +34,16 @@ AirlineDF1.show()
 # Writing dataframe into Redshift
 AirlineDF1.write \
     .format("jdbc") \
-    .option("url", "jdbc:redshift://redshift-cluster-1.cem25ev4t3ap.us-east-1.redshift.amazonaws.com:5439/dev?user=datastunt&password=Datastunt123") \
-    .option("Tempdir", "s3://airlines123/airline/") \
+    .option("url", "jdbc:redshift://redshift-cluster-1.cq86xufekc54.us-east-1.redshift.amazonaws.com:5439/test_data?user=awsuser&password=123Success") \
+    .option("Tempdir", "s3://airlines-uchechukwu123/airline-storage/") \
     .option("dbtable", "airline") \
-    .mode("error") \
+    .mode("overwrite") \
     .save()
 
 # Read data from redshift
 df = spark.read.format("jdbc") \
-    .option("url", "jdbc:redshift://redshift-cluster-1.cem25ev4t3ap.us-east-1.redshift.amazonaws.com:5439/dev?user=datastunt&password=Datastunt123") \
-    .option("Tempdir", "s3://airlines123/airline/") \
+    .option("url", "jdbc:redshift://redshift-cluster-1.cq86xufekc54.us-east-1.redshift.amazonaws.com:5439/test_data?user=awsuser&password=123Success") \
+    .option("Tempdir", "s3://airlines-uchechukwu123/airline-storage/") \
     .option("dbtable", "airline") \
     .load()
 
@@ -52,10 +52,9 @@ df.show()
 # Read data from a Query
 df1 = spark.read \
     .format("jdbc") \
-    .option("url", "jdbc:redshift://redshift-cluster-1.cem25ev4t3ap.us-east-1.redshift.amazonaws.com:5439/dev?user=datastunt&password=Datastunt123") \
+    .option("url", "jdbc:redshift://redshift-cluster-1.cq86xufekc54.us-east-1.redshift.amazonaws.com:5439/test_data?user=awsuser&password=123Success") \
     .option("query", "select count(*) from airline") \
-    .option("tempdir", "s3://airlines123/airline/") \
+    .option("Tempdir", "s3://airlines-uchechukwu123/airline-storage/") \
     .load()
-
 
 df1.show()
