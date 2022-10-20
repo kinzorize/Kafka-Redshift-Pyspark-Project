@@ -9,3 +9,7 @@ In this project, i used Apache kafka, AWS Redshift data warehouse and pyspark to
 - Pandas
 - AWS Redshift Datawarehouse
 - Jupyter notebook
+
+# Programming Language used
+
+- Python
